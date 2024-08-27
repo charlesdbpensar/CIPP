@@ -10,7 +10,6 @@ import { MessageViewer } from 'src/views/email-exchange/tools/MessageViewer'
 import { ModalService } from 'src/components/utilities'
 import { useLazyGenericGetRequestQuery } from 'src/store/api/app'
 import PropTypes from 'prop-types'
-import Skeleton from 'react-loading-skeleton'
 
 const QuarantineList = () => {
   const tenant = useSelector((state) => state.app.currentTenant)
@@ -96,7 +95,11 @@ const QuarantineList = () => {
           placement="end"
         >
           <>
-            {quarantineMessage.isLoading && <Skeleton count={10} height={30} />}
+            {quarantineMessage.isLoading && (
+              <div>
+                <CSpinner className="me-2" /> Loading message
+              </div>
+            )}
             {quarantineMessage.isSuccess && (
               <MessageViewer emailSource={quarantineMessage?.data?.Message} />
             )}
